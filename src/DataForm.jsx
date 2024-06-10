@@ -156,6 +156,7 @@ function RecipeForm() {
                 }
                 .delete-button {
                     background-color: #dc3545;
+                }
                 .delete-button:hover {
                     background-color: #c82333;
                 }
@@ -207,6 +208,7 @@ function RecipeForm() {
                 ))}
             </ul>
         </div>
+
     );
 }
 
