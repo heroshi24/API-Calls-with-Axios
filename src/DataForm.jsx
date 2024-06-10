@@ -88,126 +88,127 @@ function RecipeForm() {
     };
 
     return (
-        <div className="recipe-form-container">
-            <style>{`
-                .recipe-form-container {
-                    max-width: 600px;
-                    margin: 40px auto;
-                    padding: 20px;
-                    border: 1px solid #e0e0e0;
-                    border-radius: 8px;
-                    background-color: #fff;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                }
-                form {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 12px;
-                    margin-bottom: 20px;
-                }
-                input, textarea {
-                    padding: 12px;
-                    border: 1px solid #d0d0d0;
-                    border-radius: 4px;
-                    font-size: 16px;
-                    transition: border-color 0.2s;
-                }
-                input:focus, textarea:focus {
-                    border-color: #007bff;
-                    outline: none;
-                }
-                button {
-                    padding: 12px;
-                    border: none;
-                    border-radius: 4px;
-                    background-color: #007bff;
-                    color: white;
-                    font-size: 16px;
-                    cursor: pointer;
-                    transition: background-color 0.2s;
-                }
-                button:hover {
-                    background-color: #0056b3;
-                }
-                ul {
-                    list-style: none;
-                    padding: 0;
-                }
-                li {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 10px;
-                    border-bottom: 1px solid #e0e0e0;
-                    transition: background-color 0.2s;
-                }
-                li:hover {
-                    background-color: #f9f9f9;
-                }
-                .button-group {
-                    display: flex;
-                    gap: 8px;
-                }
-                .edit-button {
-                    background-color: #28a745;
-                }
-                .edit-button:hover {
-                    background-color: #218838;
-                }
-                .delete-button {
-                    background-color: #dc3545;
-                }
-                .delete-button:hover {
-                    background-color: #c82333;
-                }
-                p {
-                    color: #dc3545;
-                    font-size: 14px;
-                    margin-top: -10px;
-                    margin-bottom: 20px;
-                }
-            `}</style>
-            <form onSubmit={handleSubmit}>
+            <div className="recipe-form-container">
+        <style>{`
+            .recipe-form-container {
+                max-width: 600px;
+                margin: 40px auto;
+                padding: 20px;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            input, textarea {
+                padding: 12px;
+                border: 1px solid #d0d0d0;
+                border-radius: 4px;
+                font-size: 16px;
+                transition: border-color 0.2s;
+            }
+            input:focus, textarea:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+            button {
+                padding: 12px;
+                border: none;
+                border-radius: 4px;
+                background-color: #007bff;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+            li {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px;
+                border-bottom: 1px solid #e0e0e0;
+                transition: background-color 0.2s;
+            }
+            li:hover {
+                background-color: #f9f9f9;
+            }
+            .button-group {
+                display: flex;
+                gap: 8px;
+            }
+            .edit-button {
+                background-color: #28a745;
+            }
+            .edit-button:hover {
+                background-color: #218838;
+            }
+            .delete-button {
+                background-color: #dc3545;
+            }
+            .delete-button:hover {
+                background-color: #c82333;
+            }
+            p {
+                color: #dc3545;
+                font-size: 14px;
+                margin-top: -10px;
+                margin-bottom: 20px;
+            }
+        `}</style>
+        <form onSubmit={handleSubmit}>
+            <input
+                type='text'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder='Recipe Name'
+            />
+            <input
+                type='text'
+                value={cuisine}
+                onChange={(e) => setCuisine(e.target.value)}
+                placeholder='Cuisine'
+            />
+            <textarea
+                value={ingredients}
+                onChange={(e) => setIngredients(e.target.value)}
+                placeholder='Ingredients (comma separated)'
+            />
+            <label>
                 <input
-                    type='text'
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder='Recipe Name'
+                    type='checkbox'
+                    checked={favorite}
+                    onChange={(e) => setFavorite(e.target.checked)}
                 />
-                <input
-                    type='text'
-                    value={cuisine}
-                    onChange={(e) => setCuisine(e.target.value)}
-                    placeholder='Cuisine'
-                />
-                <textarea
-                    value={ingredients}
-                    onChange={(e) => setIngredients(e.target.value)}
-                    placeholder='Ingredients (comma separated)'
-                />
-                <label>
-                    <input
-                        type='checkbox'
-                        checked={favorite}
-                        onChange={(e) => setFavorite(e.target.checked)}
-                    />
-                    Favorite
-                </label>
-                <button type='submit'>{editItem ? 'Update Recipe' : 'Add Recipe'}</button>
-            </form>
-            {error && <p>{error}</p>}
-            <ul>
-                {recipes.map((recipe) => (
-                    <li key={recipe._id}>
-                        {recipe.name} - {recipe.cuisine}
-                        <div className="button-group">
-                            <button className="edit-button" onClick={() => handleEdit(recipe._id)}>Edit</button>
-                            <button className="delete-button" onClick={() => handleDelete(recipe._id)}>Delete</button>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
+                Favorite
+            </label>
+            <button type='submit'>{editItem ? 'Update Recipe' : 'Add Recipe'}</button>
+        </form>
+        {error && <p>{error}</p>}
+        <ul>
+            {recipes.map((recipe) => (
+                <li key={recipe._id}>
+                    {recipe.name} - {recipe.cuisine}
+                    <div className="button-group">
+                        <button className="edit-button" onClick={() => handleEdit(recipe._id)}>Edit</button>
+                        <button className="delete-button" onClick={() => handleDelete(recipe._id)}>Delete</button>
+                    </div>
+                </li>
+            ))}
+        </ul>
+    </div>
+
 
     );
 }
